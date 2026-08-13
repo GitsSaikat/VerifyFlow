@@ -1,0 +1,12 @@
+{
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "task_count": 100,
+  "conditions": [
+    "no_skill",
+    "current_router",
+    "v2_router",
+    "v2_adaptive"
+  ],
+  "v2_sha256": "59c39e84b639cbb617d25beabb021f7007160603211f61c971dbb83e6dd027b5",
+  "note": "Local development experiment, not official BenchFlow."
+}

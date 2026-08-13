@@ -1,0 +1,204 @@
+# VerifyFlow
+
+Evidence-driven execution for reliable AI agents in a Kaggle competition setting.
+
+VerifyFlow is a compact static skill designed to help an agent inspect relevant state, make minimal changes, and verify observable outcomes before claiming success. The project explores whether a concise evidence-driven router can improve completion quality without the latency penalty of always-loading a larger procedure bundle.
+
+This repository is organized for a competition workflow and includes:
+- exploratory notebooks in the `Notebook/` directory
+- the core skill package in `verifyflow/`
+- evaluation outputs in `verifyflow_eval/`
+- round-2 exploration results in `verifyflow_round2/`
+- supporting figures in `Figures/`
+
+## Overview
+
+The central idea behind VerifyFlow is simple: an agent should not act on assumptions. It should inspect the relevant workspace, execute only the required action, and independently verify the result. This reduces needless edits, ambiguous claims, and unsafe side effects.
+
+The static skill package is intentionally compact. The root `SKILL.md` acts as the default operating contract, while the additional procedure and reference files load only when a task needs deeper guidance.
+
+## Competition-ready repository structure
+
+```text
+VerifyFlow/
+├── LICENSE
+├── README
+├── Notebook/
+│   ├── verifyflow.ipynb
+│   └── verifyflow_plus.ipynb
+├── Figures/
+│   ├── main-workflow.png
+│   ├── report_figure_1_headline_lift.png
+│   ├── report_figure_2_category_lift.png
+│   ├── report_figure_3_efficiency_frontier.png
+│   ├── report_figure_4_safety_limit.png
+│   └── report_figure_5_paired_protocol.png
+├── verifyflow/
+│   ├── SKILL.md
+│   ├── procedures/
+│   ├── references/
+│   └── scripts/
+├── verifyflow_eval/
+│   ├── verifyflow_100task_category_summary.csv
+│   ├── verifyflow_100task_checkpoint.csv
+│   ├── verifyflow_100task_detailed_results.csv
+│   ├── verifyflow_100task_metadata.json
+│   ├── verifyflow_100task_safety_results.csv
+│   └── verifyflow_100task_summary.csv
+├── verifyflow_round2/
+│   ├── round2_category.csv
+│   ├── round2_checkpoint.csv
+│   ├── round2_detailed.csv
+│   ├── round2_metadata.json
+│   └── round2_summary.csv
+└── verifyflow_technical_report.pdf
+```
+
+## Key technical concept
+
+VerifyFlow follows an inspect-execute-verify loop:
+
+1. Inspect the task, workspace, constraints, and available evidence.
+2. Make a minimal, bounded plan.
+3. Execute only the necessary action.
+4. Verify the result against explicit acceptance checks.
+5. Report only what has actually been observed.
+
+This approach is intended to reduce both execution drift and unsupported completion claims.
+
+## Methodology summary
+
+The report evaluates a local paired setup using Qwen2.5-3B-Instruct with deterministic decoding across a 100-task diagnostic suite. The same model, task order, and evaluator are kept constant; only the skill context changes across conditions.
+
+The main comparison includes:
+- no skill
+- router only
+- router plus inspect, execute, and verify procedures
+
+The report explicitly states that these are local development results, not official benchmark results.
+
+## Main result
+
+The primary local experiment found that the compact router improved task resolution from 68% to 77%, which is a +9 percentage point lift over the no-skill baseline.
+
+| Condition | Passed | Resolution | Lift | Median time |
+| --- | ---: | ---: | ---: | ---: |
+| No skill | 68/100 | 68% | N/A | 1.307 s |
+| Router only | 77/100 | 77% | +9 pp | 1.756 s |
+| Router plus procedures | 71/100 | 71% | +3 pp | 3.108 s |
+
+This indicates that a concise default router was the strongest overall choice in the main ablation.
+
+## Performance by category
+
+The category-level results show that the router helped most in structured-output and safety-reasoning tasks, with a smaller improvement in execution reasoning.
+
+| Category | No skill | Router only | Router + procedures |
+| --- | ---: | ---: | ---: |
+| Constraint following | 100% | 100% | 100% |
+| Execution reasoning | 90% | 95% | 100% |
+| Safety reasoning | 10% | 30% | 10% |
+| Structured output | 55% | 80% | 60% |
+| Verification reasoning | 85% | 80% | 85% |
+
+The main takeaway is that the compact router gave the largest local gains in structured output (+25 pp) and safety reasoning (+20 pp), while the full procedure bundle improved execution but cost substantially more time.
+
+## Efficiency and latency trade-off
+
+The full procedure bundle is slower and did not outperform the router in aggregate score.
+
+| Condition | Median s | Mean s | Total s |
+| --- | ---: | ---: | ---: |
+| No skill | 1.307 | 2.750 | 275.050 |
+| Router only | 1.756 | 3.529 | 352.874 |
+| Router plus procedures | 3.108 | 5.979 | 597.903 |
+
+The report concludes that the router-only condition delivered the best balance of task resolution and runtime, which supports the idea that minimal, selective guidance is often more practical than always loading a larger procedural bundle.
+
+## Safety and responsible design
+
+VerifyFlow also improves local safety behavior, although the report does not claim the system is a robust safety solution.
+
+In the main evaluation:
+- safety pass rate improved from 10% to 30% with the router-only approach
+- unsafe recommendation rate declined from 75% to 60%
+
+The report emphasizes that destructive-action behavior remains an important area for future work. The safety policy stresses pre-checking destructive actions, confirming targets and authorization, and preferring reversible alternatives such as backups, copies, previews, or trashing instead of irreversible deletion.
+
+## Round 2 exploratory iteration
+
+The second round explored a shorter V2 router and task-selective routing. The adaptive condition reached 74%, a +2 percentage-point lift over the Round 2 baseline. It improved structured-output performance from 60% to 70% and verification reasoning from 0% to 100% within that exploratory suite.
+
+However, the report treats Round 2 as an iteration signal rather than headline evidence because several prompt templates were reused. The key architectural lesson is that selective routing is promising and merits further testing with more diverse, outcome-based tasks.
+
+## Figure-driven summary
+
+The README is complemented by the figures in the `Figures/` directory:
+
+### Main workflow
+
+![VerifyFlow workflow](Figures/main-workflow.png)
+
+This figure shows the compact router linking an evidence-driven agent loop with selective guidance and paired evaluation.
+
+### Headline lift
+
+![Headline lift](Figures/report_figure_1_headline_lift.png)
+
+This figure presents the core result: the router-only setup improves task resolution over the baseline while remaining lighter than the full procedure stack.
+
+### Category lift
+
+![Category lift](Figures/report_figure_2_category_lift.png)
+
+This figure highlights the largest gains in structured-output and safety reasoning tasks.
+
+### Efficiency frontier
+
+![Efficiency frontier](Figures/report_figure_3_efficiency_frontier.png)
+
+This figure illustrates the resolution-versus-runtime trade-off and reinforces the report’s conclusion that the router-only condition offers the strongest local balance.
+
+### Safety limit
+
+![Safety limit](Figures/report_figure_4_safety_limit.png)
+
+This figure underscores the safety gains while also revealing the remaining risk and the need for stronger destructive-action gating.
+
+### Paired evaluation protocol
+
+![Paired evaluation protocol](Figures/report_figure_5_paired_protocol.png)
+
+This figure summarizes the paired local evaluation design: the model, task list, and decoding settings stay fixed, while only the skill context changes.
+
+## Component breakdown
+
+The skill bundle is organized as follows:
+
+- `SKILL.md`: compact router and default behavior contract
+- `procedures/inspect.md`: state inspection and constraint discovery
+- `procedures/execute.md`: bounded action and checkpoint guidance
+- `procedures/verify.md`: independent evidence-based completion checks
+- `references/`: format and troubleshooting guidance
+- `scripts/`: deterministic validation and workspace summarization helpers
+
+This modular design supports lightweight default use and selective loading of deeper guidance when a task requires it.
+
+## Conclusion
+
+VerifyFlow demonstrates that a compact evidence-driven router can outperform a larger always-loaded procedure bundle in a local paired evaluation. The strongest result is not absolute benchmark dominance but a clear operating model:
+
+- inspect before acting
+- execute with bounded scope
+- verify before claiming completion
+- load detailed guidance only when necessary
+
+This makes VerifyFlow a useful competition artifact, a research prototype, and a practical blueprint for building more reliable AI agent workflows.
+
+## Recommended usage
+
+- Open the notebooks in `Notebook/` for the experiment timeline and paired-evaluation logic.
+- Use the `verifyflow/` package as the main skill bundle.
+- Review `verifyflow_eval/` for Round 1 results and `verifyflow_round2/` for follow-up iteration.
+- Use the figures in `Figures/` for presentation, report writing, and documentation.
+- Read `verifyflow_technical_report.pdf` for the formal narrative and evidence-based conclusions.

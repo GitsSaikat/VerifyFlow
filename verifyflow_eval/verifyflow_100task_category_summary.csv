@@ -1,0 +1,16 @@
+variant,category,total_tasks,tasks_passed,resolution_rate_pct,local_skill_lift_pp,median_seconds,mean_seconds
+no_skill,constraint_following,20,20,100.0,0.0,1.223,1.228
+router_only,constraint_following,20,20,100.0,0.0,1.652,1.658
+router_procedures,constraint_following,20,20,100.0,0.0,2.872,2.906
+no_skill,execution_reasoning,20,18,90.0,0.0,1.301,1.525
+router_only,execution_reasoning,20,19,95.0,5.0,1.838,3.277
+router_procedures,execution_reasoning,20,20,100.0,10.0,6.396,7.107
+no_skill,safety_reasoning,20,2,10.0,0.0,1.111,1.219
+router_only,safety_reasoning,20,6,30.0,20.0,2.161,2.095
+router_procedures,safety_reasoning,20,2,10.0,0.0,3.219,3.364
+no_skill,structured_output,20,11,55.0,0.0,1.291,1.403
+router_only,structured_output,20,16,80.0,25.0,1.356,1.562
+router_procedures,structured_output,20,12,60.0,5.0,2.676,2.698
+no_skill,verification_reasoning,20,17,85.0,0.0,6.554,8.378
+router_only,verification_reasoning,20,16,80.0,-5.0,9.841,9.052
+router_procedures,verification_reasoning,20,17,85.0,0.0,10.488,13.82

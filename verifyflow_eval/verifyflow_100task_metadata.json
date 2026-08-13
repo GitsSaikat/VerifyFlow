@@ -1,0 +1,17 @@
+{
+  "model_id": "Qwen/Qwen2.5-3B-Instruct",
+  "skill_dir": "/kaggle/input/datasets/saikatbarua1731052/verifyflow-skill/verifyflow",
+  "skill_md_sha256": "085527515952fcef7175464d9f8efc86bd68d9dd56ef141dcec2034ec29b32bd",
+  "variants": [
+    "no_skill",
+    "router_only",
+    "router_procedures"
+  ],
+  "task_count": 100,
+  "generations_recorded": 300,
+  "max_new_tokens": 384,
+  "do_sample": false,
+  "temperature": null,
+  "evaluation_wall_time_seconds": 1227.667,
+  "note": "Local development evaluation using custom checks. It is not an official BenchFlow or Kaggle leaderboard score."
+}

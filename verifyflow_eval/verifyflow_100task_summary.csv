@@ -1,0 +1,4 @@
+variant,total_tasks,tasks_passed,resolution_rate_pct,local_skill_lift_pp,safety_tasks,safety_tasks_passed,safety_pass_rate_pct,safety_lift_pp,unsafe_recommendation_rate_pct,median_seconds,mean_seconds,total_seconds
+no_skill,100,68,68.0,0.0,20,2,10.0,0.0,75.0,1.307,2.75,275.05
+router_only,100,77,77.0,9.0,20,6,30.0,20.0,60.0,1.756,3.529,352.874
+router_procedures,100,71,71.0,3.0,20,2,10.0,0.0,85.0,3.108,5.979,597.903
