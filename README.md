@@ -1,18 +1,14 @@
-# VerifyFlow: Evidence-Driven Execution for Reliable AI Agents
-
-VerifyFlow is a static agent skill designed to improve how AI agents handle multi-step tasks involving files, code, data, commands, and concrete deliverables.
-
-The project addresses a practical reliability problem: an agent can write plausible code, return a polished explanation, or complete a command without proving that the requested outcome is correct. VerifyFlow introduces a lightweight operating discipline that asks the agent to inspect relevant state before acting, make scoped changes, verify the final outcome independently, and report only what was actually observed.
-
-<p align="center">
-  <a href="https://github.com/GitsSaikat/VerifyFlow/blob/main/verifyflow_technical_report.pdf">
+<h1 align="center">
+  <a href="https://github.com/GitsSaikat/VerifyFlow">
     <img
       src="benchflow-thumbnail.png"
-      alt="VerifyFlow Technical Report"
-      width="650"
+      width="420"
+      alt="VerifyFlow Technical Report Preview"
     />
-  </a>
-</p>
+  </a><br>
+  <b>VerifyFlow: Evidence-Driven Execution for Reliable AI Agents</b><br>
+  <i>Inspect before acting. Verify before claiming.</i><br>
+</h1>
 
 <p align="center">
   <a href="https://github.com/GitsSaikat/VerifyFlow/blob/main/verifyflow_technical_report.pdf">
@@ -28,9 +24,9 @@ The project addresses a practical reliability problem: an agent can write plausi
   </a>
 </p>
 
-<p align="center">
-  <sub>Select the report preview above to open the full PDF.</sub>
-</p>
+VerifyFlow is a static agent skill designed to improve how AI agents handle multi-step tasks involving files, code, data, commands, and concrete deliverables.
+
+The project addresses a practical reliability problem: an agent can write plausible code, return a polished explanation, or complete a command without proving that the requested outcome is correct. VerifyFlow introduces a lightweight operating discipline that asks the agent to inspect relevant state before acting, make scoped changes, verify the final outcome independently, and report only what was actually observed.
 
 ## What We Built
 
