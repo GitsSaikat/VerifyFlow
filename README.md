@@ -4,7 +4,13 @@ VerifyFlow is a static agent skill designed to improve how AI agents handle mult
 
 The project addresses a practical reliability problem: an agent can write plausible code, return a polished explanation, or complete a command without proving that the requested outcome is correct. VerifyFlow introduces a lightweight operating discipline that asks the agent to inspect relevant state before acting, make scoped changes, verify the final outcome independently, and report only what was actually observed.
 
-The complete implementation, evaluation outputs, figures, and technical report are available in the [VerifyFlow GitHub repository](https://github.com/GitsSaikat/VerifyFlow). A video overview of the project is available on [YouTube](https://youtu.be/RMrMbwnZ9tw?si=5gcBtKGQv2CUv0Qh), and the full [technical report is available here](https://github.com/GitsSaikat/VerifyFlow/blob/main/verifyflow_technical_report.pdf).
+[![VerifyFlow Technical Report](benchflow-thumbnail.png)](https://github.com/GitsSaikat/VerifyFlow/blob/main/verifyflow_technical_report.pdf)
+
+> 📄 **Technical Report:** [Open the full VerifyFlow technical report PDF](https://github.com/GitsSaikat/VerifyFlow/blob/main/verifyflow_technical_report.pdf)  
+> 🎥 **Video Overview:** [Watch the VerifyFlow project video](https://youtu.be/RMrMbwnZ9tw?si=5gcBtKGQv2CUv0Qh)  
+> 💻 **Source Code and Evaluation Assets:** [Browse the VerifyFlow repository](https://github.com/GitsSaikat/VerifyFlow)
+
+The image above is a clickable report preview. Select it to open the full technical report PDF.
 
 ## What We Built
 
